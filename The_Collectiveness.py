@@ -7,7 +7,7 @@ PRECISION = 3
 
 try:
     with open(output_path, "r") as f:
-        print(f.read().count(":"))
+        AMOUNT -= f.read().count(":")
 except: pass
 
 
