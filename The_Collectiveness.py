@@ -2,7 +2,7 @@ import multiprocessing
 from Hive import Bee, output_path
 
 AMOUNT = 10**9
-PRECISION = 3
+PRECISION = 2
 
 
 try:
@@ -20,13 +20,18 @@ def progress_bar(percent, bar_length = 20):
 
 def send_unit(from_f, to_f, index):
     last_progress = -1
+    report = ""
     for i in range(int(AMOUNT*from_f), int(AMOUNT*to_f)):
-        Bee()
+        bee = Bee()
+        report += bee.explore()
         if index != 0: continue
         progress = round((i / AMOUNT - from_f) / (to_f - from_f) * 100, PRECISION)
         if progress > last_progress:
             last_progress = progress
             progress_bar(progress)
+            with open(output_path, "a") as f:
+                f.write(report)
+            report = ""
 
 
 if __name__ == '__main__':

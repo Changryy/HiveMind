@@ -23,10 +23,6 @@ class Bee:
         self.path = ""
         self.step = self.position = 0
 
-        flight_range = len(meadow) - 1
-        while self.is_alive and self.step < flight_range:
-            self.navigate()
-
     def fly(self, direction) -> None:
         self.step += 1
         self.position += direction
@@ -42,11 +38,6 @@ class Bee:
     
     def die(self) -> None:
         self.is_alive = False
-        self.send_report()
-    
-    def send_report(self) -> None:
-        with open(output_path, "a") as f:
-            f.write(f"{self.step}:{int(self.path, 2)},")
 
     def navigate(self) -> None:
         fly_randomly = lambda: self.fly(randrange(2))
@@ -57,7 +48,12 @@ class Bee:
             else:
                 direction = choices([0,1],weight)[0]
                 self.fly(direction)
-        
         else: fly_randomly()
+    
+    def explore(self):
+        flight_range = len(meadow) - 1
+        while self.is_alive and self.step < flight_range:
+            self.navigate()
+        return f"{self.step}:{int(self.path, 2)},"
 
 
