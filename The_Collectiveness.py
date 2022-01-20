@@ -11,7 +11,7 @@ try:
 except: pass
 
 
-def progress_bar(percent, total, bar_length = 20):
+def progress_bar(percent, bar_length = 20):
     arrow   = '-' * int(percent/100 * bar_length - 1) + '>'
     spaces  = ' ' * (bar_length - len(arrow))
 
@@ -26,7 +26,7 @@ def send_unit(from_f, to_f, index):
         progress = round((i / AMOUNT - from_f) / (to_f - from_f) * 100, PRECISION)
         if progress > last_progress:
             last_progress = progress
-            progress_bar(progress, 100)
+            progress_bar(progress)
 
 
 if __name__ == '__main__':
