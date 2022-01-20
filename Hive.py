@@ -6,6 +6,7 @@ input_path = "Tests/input2.txt"
 output_path = "Data/output.csv"
 evaluation_path = "Data/evaluation.csv"
 
+
 with open(input_path, "r") as f:
     meadow = [x for x in csv.reader(f)]
 

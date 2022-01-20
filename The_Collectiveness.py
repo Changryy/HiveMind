@@ -2,7 +2,7 @@ import multiprocessing
 from Hive import Bee, output_path
 
 AMOUNT = 10**9
-PRECISION = 2
+PRECISION = 1
 
 
 try:
@@ -11,11 +11,11 @@ try:
 except: pass
 
 
-def progress_bar(percent, bar_length = 20):
-    arrow   = '-' * int(percent/100 * bar_length - 1) + '>'
-    spaces  = ' ' * (bar_length - len(arrow))
-
-    print(f"Progress: [{arrow}{spaces}] {percent:.3f} %", end='\r')
+def progress_bar(progress, bar_length = 20):
+    arrow   = "-" * int(progress/100 * bar_length - 1) + '>'
+    spaces  = " " * (bar_length - len(arrow))
+    percent = ("{:."+str(PRECISION)+"f}").format(progress)
+    print(f"Progress: [{arrow}{spaces}] {percent} %", end='\r')
 
 
 def send_unit(from_f, to_f, index):
