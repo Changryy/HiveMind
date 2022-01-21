@@ -6,23 +6,14 @@ PRECISION = 2
 THREADS = 16
 
 
-try:
-    with open(output_path, "r") as f:
-        AMOUNT -= f.read().count(":")
-except: pass
-
-
 def progress_bar(progress, bar_length = 20):
     arrow   = "-" * int(progress/100 * bar_length - 1) + '>'
     spaces  = " " * (bar_length - len(arrow))
     percent = ("{:."+str(PRECISION)+"f}").format(progress)
     print(f"Progress: [{arrow}{spaces}] {percent} %", end='\r')
 
-finished = 0
-
 
 def send_unit(from_f, to_f, index):
-    global finished
     last_progress = -1
     report = ""
     for i in range(int(AMOUNT*from_f), int(AMOUNT*to_f)):
@@ -43,20 +34,31 @@ def send_unit(from_f, to_f, index):
     with open(output_path, "a") as f:
         f.write(report)
     print(f"Thread {index} finished")
-    finished += 1
 
 
 if __name__ == '__main__':
-    processes = []
-    for i in range(THREADS):
-        p = multiprocessing.Process(target=send_unit, args=(i/THREADS,(i+1)/THREADS,i))
-        processes.append(p)
-        p.start()
-        
-    for process in processes:
-        process.join()
+    try:
+        with open(output_path, "r") as f:
+            instances = f.read().count(":")
+            AMOUNT -= instances
+    except: pass
+
+    if AMOUNT > 0:
+        print(f"Running {AMOUNT} simulations...")
+        processes = []
+        for i in range(THREADS):
+            p = multiprocessing.Process(target=send_unit, args=(i/THREADS,(i+1)/THREADS,i))
+            processes.append(p)
+            p.start()
+            
+        for process in processes:
+            process.join()
+        print("Done")
     
-    print("Done")
+    else:
+        print("Not running more simulations")
+        print(f"{instances} >= {AMOUNT+instances}")
+        
 
 
 
