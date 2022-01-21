@@ -19,7 +19,6 @@ def send_unit(index, shared_progress):
     for i in range(int(AMOUNT / THREADS)):
         bee = Bee()
         report += bee.explore()
-        #if index != finished: continue
         progress = round(i / (AMOUNT/THREADS) * 100, PRECISION)
         if progress > last_progress:
             shared_progress[index] = last_progress = progress
@@ -29,7 +28,7 @@ def send_unit(index, shared_progress):
             report = ""
     with open(output_path, "a") as f:
         f.write(report)
-    print(f"Thread {index} finished")
+    print(f"Process-{index} Completed")
 
 
 if __name__ == '__main__':
@@ -47,7 +46,6 @@ if __name__ == '__main__':
             p = multiprocessing.Process(target=send_unit, args=(i,progress))
             processes.append(p)
             p.start()
-            
         for process in processes:
             process.join()
         print("Done")
