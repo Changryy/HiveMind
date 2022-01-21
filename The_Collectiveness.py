@@ -13,21 +13,17 @@ def progress_bar(progress, bar_length = 20):
     print(f"Progress: [{arrow}{spaces}] {percent} %", end='\r')
 
 
-def send_unit(from_f, to_f, index):
+def send_unit(index, shared_progress):
     last_progress = -1
     report = ""
-    for i in range(int(AMOUNT*from_f), int(AMOUNT*to_f)):
+    for i in range(int(AMOUNT / THREADS)):
         bee = Bee()
         report += bee.explore()
         #if index != finished: continue
-        progress = abs(round(
-            (i / AMOUNT - from_f)
-            / (to_f - from_f)
-            * 100
-        ,PRECISION))
+        progress = round(i / (AMOUNT/THREADS) * 100, PRECISION)
         if progress > last_progress:
-            last_progress = progress
-            progress_bar(progress)
+            shared_progress[index] = last_progress = progress
+            progress_bar(min(shared_progress))
             with open(output_path, "a") as f:
                 f.write(report)
             report = ""
@@ -46,8 +42,9 @@ if __name__ == '__main__':
     if AMOUNT > 0:
         print(f"Running {AMOUNT} simulations...")
         processes = []
+        progress = multiprocessing.Array('d', range(THREADS))
         for i in range(THREADS):
-            p = multiprocessing.Process(target=send_unit, args=(i/THREADS,(i+1)/THREADS,i))
+            p = multiprocessing.Process(target=send_unit, args=(i,progress))
             processes.append(p)
             p.start()
             
