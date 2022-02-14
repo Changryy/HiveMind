@@ -32,8 +32,8 @@ class Bee:
 
     def land_on_flower(self) -> None:
         try:
-            danger = float(meadow[self.step][self.position]) / 20.0
-            if random() > danger: self.die()
+            safety_level = (float(meadow[self.step][self.position]) + 1.0) / 21.0
+            if random() > safety_level: self.die()
         except:
             print(self.step, self.position)
     
