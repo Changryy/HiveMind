@@ -48,7 +48,7 @@ To do this [The Collectiveness](The_Collectiveness.py) sends out millions of [be
 
 After the first generation of bees are done exploring, The Collectiveness generates an `evaluation.csv` file based on the `output.csv` file. The evaluation looks very similar to [the meadow](Tests/input2.txt), but instead of the numbers representing safety levels, the numbers represent the average distance a bee travelled by choosing said flower.<br>
 The next generation of bees uses the `evaluation.csv` file as reference for which path to choose.
-- If at least on of the flowers is unexplored (average distance is zero), the bee will choose its next step randomly.
+- If at least one of the flowers is unexplored (average distance is zero), the bee will choose its next step randomly.
 - If both flowers have an average distance above zero, the bee chooses its next step based on the average distance of each flower. The choice is still random, but uses the average distance as weight for the randomness.
 
 ![The bee chooses its route based on how far the bees before it got.](Images/Gamble.png)
