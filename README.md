@@ -35,7 +35,8 @@ In this particular meadow there are 633 825 300 114 114 700 748 351 602 688 path
 [The meadow](Tests/input2.txt) is triangular, and each flower has a value from 0 to 20 indicating its safety level.<br>
 *(A safety level of 0 does not equal to an invetiable death, but a survivability chance of 1/21. This is to prevent paths from being completely unusable)*
 
-![Triangle of numbers.](Images/Meadow.png)
+![Triangle consisting of 10 numbers.](Images/Meadow.png)
+_(The [actual meadow](Tests/input2.txt) is **a lot** bigger than this illustration)_
 
 A bee starts at the top of the triangle and descends down. With each step downwards it has to choose wether to fly to the right or the left diagonally adjacent flower.
 
