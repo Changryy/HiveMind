@@ -35,27 +35,23 @@ In this particular meadow there are 633 825 300 114 114 700 748 351 602 688 path
 [The meadow](Tests/input2.txt) is triangular, and each flower has a value from 0 to 20 indicating its safety level.<br>
 *(A safety level of 0 does not equal to an invetiable death, but a survivability chance of 1/21. This is to prevent paths from being completely unusable)*
 
-**(insert image)**
+![Triangle of numbers.](Images/Meadow.png)
 
 A bee starts at the top of the triangle and descends down. With each step downwards it has to choose wether to fly to the right or the left diagonally adjacent flower.
 
-**(insert image)**
-
-The goal is to find the safest path from the top of the triangle to the bottom.
-
-
-To find the safest path [The Collectiveness](The_Collectiveness.py) sends out millions of [bees](Hive.py). Each bee flies randomly throught the maze, and when it dies (or reaches the end) it appends the **distance** it travelled and the **path** it took to an `output.csv` file.
+The goal is to find the safest path from the top of the triangle to the bottom.<br>
+To do this [The Collectiveness](The_Collectiveness.py) sends out millions of [bees](Hive.py). Each bee flies randomly throught the maze, and when it dies (or reaches the end) it appends the **distance** it travelled and the **path** it took to an `output.csv` file.
 * The **path** is an integer representing a binary number with a length equal to the **distance**. Each digit in the binary version of the path corresponds to the directions the bee chose. 0 = left, 1 = right. If the length of the binary path is less than the **distance**, the missing length gets added as zeros in front of the binary path.
 * The values get saved as `distance:path,` on one single comma-separated line in the `output.csv` file.
 
-**(insert image)**
+![A bee travels through the meadow and records the path it takes.](Images/Commute.png)
 
 After the first generation of bees are done exploring, The Collectiveness generates an `evaluation.csv` file based on the `output.csv` file. The evaluation looks very similar to [the meadow](Tests/input2.txt), but instead of the numbers representing safety levels, the numbers represent the average distance a bee travelled by choosing said flower.<br>
 The next generation of bees uses the `evaluation.csv` file as reference for which path to choose.
 - If at least on of the flowers is unexplored (average distance is zero), the bee will choose its next step randomly.
 - If both flowers have an average distance above zero, the bee chooses its next step based on the average distance of each flower. The choice is still random, but uses the average distance as weight for the randomness.
 
-**(insert image)**
+![The bee chooses its route based on how far the bees before it got.](Images/Gamble.png)
 
 The program is multithreaded, thus utilising all cores of the CPU.
 
@@ -65,4 +61,5 @@ This was originally a school assignment, and although very innefficient, that wa
 This alternative solution goes through each flower on every row and finds the best path to each from the previous row.
 Here is a visualisation of the process:
 
-**(insert image)**
+![Add the highest sum from the previous flowers](Images/Addition2.png)
+![Find the best path starting from the bottom](Images/Solution.png)
