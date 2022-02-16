@@ -36,14 +36,14 @@ In this particular meadow there are 633 825 300 114 114 700 748 351 602 688 path
 *(A safety level of 0 does not equal to an invetiable death, but a survivability chance of 1/21. This is to prevent paths from being completely unusable)*
 
 ![Triangle consisting of 10 numbers.](Images/Meadow.png)
-_(The [actual meadow](Tests/input2.txt) is **a lot** bigger than this illustration)_
+*(This illustration is only a fraction of the [actual meadow](Tests/input2.txt))*
 
 A bee starts at the top of the triangle and descends down. With each step downwards it has to choose wether to fly to the right or the left diagonally adjacent flower.
 
 The goal is to find the safest path from the top of the triangle to the bottom.<br>
 To do this [The Collectiveness](The_Collectiveness.py) sends out millions of [bees](Hive.py). Each bee flies randomly throught the maze, and when it dies (or reaches the end) it appends the **distance** it travelled and the **path** it took to an `output.csv` file.
 * The **path** is an integer representing a binary number with a length equal to the **distance**. Each digit in the binary version of the path corresponds to the directions the bee chose. 0 = left, 1 = right. If the length of the binary path is less than the **distance**, the missing length gets added as zeros in front of the binary path.
-* The values get saved as `distance:path,` on one single comma-separated line in the `output.csv` file.
+* The values are saved as `distance:path,` on one single comma-separated line in an `output.csv` file.
 
 ![A bee travels through the meadow and records the path it takes.](Images/Commute.png)
 
